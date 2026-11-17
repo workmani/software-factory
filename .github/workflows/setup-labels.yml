@@ -1,0 +1,30 @@
+# Creates the labels the factory uses. Runs once on first push, and any time you trigger it manually.
+name: Setup labels
+
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/setup-labels.yml]
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - run: |
+          mk() { gh label create "$1" --color "$2" --description "$3" --force; }
+          mk idea         "fbca04" "Submitted to the software factory"
+          mk speccing     "c5def5" "Factory: Claude is writing the spec"
+          mk spec-ready   "0e8a16" "Factory: spec posted, waiting for build approval"
+          mk respec       "d4c5f9" "Factory: re-run the spec stage"
+          mk build        "1d76db" "Factory: approve and start the build"
+          mk building     "5319e7" "Factory: Claude is building"
+          mk built        "0e8a16" "Factory: PR is open"
+          mk build-failed "b60205" "Factory: build failed, re-add build to retry"
+          mk factory      "ededed" "PR produced by the software factory"

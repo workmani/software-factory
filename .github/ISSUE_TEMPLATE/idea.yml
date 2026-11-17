@@ -1,0 +1,43 @@
+name: 💡 Submit an idea
+description: Drop an idea into the factory. Claude writes a spec, then builds it once someone adds the `build` label.
+title: "[Idea] "
+labels: ["idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe a small, disposable app. Think "one screen, one job".
+        The factory builds static web apps (HTML/CSS/JS) that deploy to GitHub Pages.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Who is it for and what are they trying to do?
+      placeholder: Field supervisors need a quick way to...
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What should it do?
+      description: Rough features, screens, or behavior. Bullets are fine.
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: How will we know it works?
+      description: One or two acceptance checks.
+      placeholder: I can enter X and see Y.
+    validations:
+      required: false
+  - type: dropdown
+    id: lifespan
+    attributes:
+      label: Expected lifespan
+      options:
+        - Throwaway (days)
+        - Short-lived (weeks)
+        - Might stick around (months)
+    validations:
+      required: true
